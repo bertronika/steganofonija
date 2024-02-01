@@ -2,6 +2,8 @@
 pkg load communications;
 global FRAME_LEN STRENGTH RAND_SEED RAND_FUNC;
 
+addpath("util/");
+
 MESSAGE = "sporočilo.txt";
 # HOST_AUDIO  = "400Hz.flac";
 # HOST_AUDIO  = "440Hz.wav";
