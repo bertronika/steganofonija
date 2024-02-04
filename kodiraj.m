@@ -94,13 +94,15 @@ printf("input_audio = %s\n", sf.en.input_audio);
 
 % Naloži vzorce vhodnega posnetka.
 [x, fs] = audioread(sf.en.input_audio);
-# x_info  = audioinfo(sf.en.input_audio);
+x_info  = audioinfo(sf.en.input_audio);
+
+% Izračunaj št. bitov sporočila na sekundo posnetka
+BPS = needed_bits/x_info.Duration
 
 % Vgradi sporočilo v posnetek.
-[y, SNR] = dsss_en(x, msg_flat, sf.param.strength, sf.param.frame_len);
+[y, SNR, eff] = dsss_en(x, msg_flat, sf.param.strength, sf.param.frame_len);
 printf("SNR = %.2f dB\n", SNR);
-# printf("SNR = %d dB, učinkovitost %d bps.", SNR, ---/x_info.Duration);
-# BPS = msg_len/duration                  % Bits Per Second
+printf("efficiency = %.2f %%\n", eff);
 
 % Prikaži čas kodiranja.
 printf("# čas kodiranja = %.3f s\n", toc);

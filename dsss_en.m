@@ -13,7 +13,7 @@
 ## @seealso{dsss_en}
 ## @end deftypefn
 
-function [y, SNR] = dsss_en(x, msg, strength, frame_len)
+function [y, SNR, eff] = dsss_en(x, msg, strength, frame_len)
 	if (nargin == 0)
 		error("dsss_en() je funkcija, ne samostojen skript.\n")
 	endif
@@ -70,4 +70,5 @@ function [y, SNR] = dsss_en(x, msg, strength, frame_len)
 
 	% Statistika po kodiranju
 	SNR = 10 * log10(sumsq(x)/sumsq(x - y)); % Signal to Noise Ratio
+	eff = (msg_len/embeddable_bits) * 100;   % Izkoristek posnetka
 endfunction
