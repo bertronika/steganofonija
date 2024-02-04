@@ -100,8 +100,7 @@ printf("SNR = %.2f dB\n", SNR);
 # BPS = msg_len/duration                  % Bits Per Second
 
 % Prikaži čas kodiranja.
-t_en = toc;
-printf("# čas kodiranja = %.3f s\n", t_en);
+printf("# čas kodiranja = %.3f s\n", toc);
 
 % Preveri uspešnost kodiranja s klicem dekodirnika,
 % ki pa bo uspešnost kodiranja le validiral.

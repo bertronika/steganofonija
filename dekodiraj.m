@@ -117,8 +117,7 @@ endif
 # assert(CER_msg != 100);
 
 % Prikaži čas dekodiranja.
-t_de = toc;
-printf("# čas dekodiranja = %.3f s\n", t_de);
+printf("# čas dekodiranja = %.3f s\n", toc);
 
 if (!VALIDATING_CODING)
 	% Zapiši dekodirano sporočilo
