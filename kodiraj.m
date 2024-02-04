@@ -41,6 +41,8 @@ printf("strength  = %d\n\n", sf.param.strength);
 % Začni štoparico za meritev časa kodiranja.
 tic
 
+input_msg_before_rs = input_msg; % Shrani izvirnik sporočila
+
 %%%
 % Opcijsko kodiraj sporočilo z Reed-Solomonovo kodo.
 %%%
@@ -52,6 +54,7 @@ if (sf.param.rs_enable)
 	input_msg = rs_en(input_msg, sf.param.rs_correctable_errors);
 	input_msg_len = numel(input_msg);
 	printf("msg_len_post_rs = %d\n", input_msg_len);
+	disp("-- Analiza -------------------");
 else
 	disp("-- Analiza -------------------");
 	printf("input_file = %s\n", sf.en.input_file);

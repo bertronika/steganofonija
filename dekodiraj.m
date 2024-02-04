@@ -20,12 +20,13 @@ function ber = get_ber(x, y, total)
 	ber *= 100;
 endfunction
 
-# function cer = get_cer(x, y)
-# 	total = numel(x);
-# 	assert(total == numel(y));
-# 	c_diff = x - y;
-# 	cer = (numel(c_diff(c_diff != 0))/total) * 100;
-# endfunction
+% Character Error Rate
+function cer = get_cer(x, y)
+	total = numel(x);
+	assert(total == numel(y));
+	c_diff = x - y;
+	cer = (numel(c_diff(c_diff != 0))/total) * 100;
+endfunction
 
 %%%
 % Program
@@ -76,7 +77,7 @@ endif
 if (VALIDATING_CODING)
 	% Izračunaj Bit Error Rate
 	BER = get_ber(msg_recv(1:numel(msg_flat)), msg_flat, available_bits);
-	printf("BER = %.2f %%\n", BER);
+	printf("bit_error_rate = %.2f %%\n", BER);
 endif
 
 % Preoblikuj vektor v matriko z 8 stolpci (po en bajt).
@@ -106,15 +107,17 @@ if (sf.param.rs_enable)
 	endif
 
 	if (VALIDATING_CODING)
-		printf("error_rate = %.2f %%\n", (n_of_errors/numel(input_msg)) * 100);
+		printf("rs_error_rate = %.2f %%\n", (n_of_errors/numel(input_msg)) * 100);
 	endif
 endif
 
-# % Izračunaj Character Error Rate
-# CER_all = get_cer(resize(input_msg_before_rs, numel(output_msg), 1), output_msg)
-# CER_msg = get_cer(input_msg_before_rs, output_msg(1:numel(input_msg_before_rs)))
-#
-# assert(CER_msg != 100);
+if (VALIDATING_CODING)
+	CER = get_cer(input_msg_before_rs, output_msg(1:numel(input_msg_before_rs)));
+	disp("-- Analiza -------------------");
+	printf("message_error_rate = %.2f %%\n", CER);
+	printf("extraneous_data = %.2f %%\n", (numel(output_msg)/numel(input_msg_before_rs)) * 100);
+	# assert(CER_msg != 100);
+endif
 
 % Prikaži čas dekodiranja.
 printf("# čas dekodiranja = %.3f s\n", toc);
