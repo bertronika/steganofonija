@@ -71,6 +71,11 @@ if (needed_bits > available_bits)
 	error("Sporočilo je preveliko za vgradnjo v posnetek.\n");
 endif
 
+if (!sf.param.rs_enable &&
+    rs_en(input_msg, sf.param.rs_correctable_errors, true) * 8 <= available_bits)
+	disp("# prostora je dovolj za RS");
+endif
+
 % Pretvori desetiški vektor sporočila v dvojiško matriko,
 % s po enim bajtom v enem 8-bitnem stolpcu.
 msg_bin = de2bi(input_msg, 8, "left-msb")';
