@@ -99,6 +99,7 @@ if (sf.param.rs_enable)
 	disp("-- RS dekodiranje ------------");
 	[output_msg, n_of_errors] = rs_de(output_msg, sf.param.rs_correctable_errors);
 	output_msg = output_msg';
+	printf("correctable_errors = %d\n", sf.param.rs_correctable_errors);
 	n_of_errors
 	if (n_of_errors == -1)
 		error("RS dekodiranje neuspešno.\n");
@@ -117,7 +118,7 @@ endif
 
 % Prikaži čas dekodiranja.
 t_de = toc;
-printf("Čas = %.3f s\n", t_de);
+printf("# čas dekodiranja = %.3f s\n", t_de);
 
 if (!VALIDATING_CODING)
 	% Zapiši dekodirano sporočilo

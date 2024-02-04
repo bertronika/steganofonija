@@ -101,7 +101,7 @@ printf("SNR = %.2f dB\n", SNR);
 
 % Prikaži čas kodiranja.
 t_en = toc;
-printf("Čas = %.3f s\n", t_en);
+printf("# čas kodiranja = %.3f s\n", t_en);
 
 % Preveri uspešnost kodiranja s klicem dekodirnika,
 % ki pa bo uspešnost kodiranja le validiral.
