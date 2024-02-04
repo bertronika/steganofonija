@@ -1,0 +1,127 @@
+% Dekodirni program.
+
+source("param.octave");
+addpath("util/");
+
+pkg load communications; % Funkcija bi2de()
+
+global RAND_FUNC RAND_SEED;
+RAND_FUNC = sf.param.rand_func;
+RAND_SEED = sf.param.rand_seed;
+
+%%%
+% Lokalne funkcije
+%%%
+
+% Bit Error Rate
+function ber = get_ber(x, y, total)
+	assert(numel(x) == numel(y));
+	ber = sum(abs(y - x)) / total;
+	ber *= 100;
+endfunction
+
+# function cer = get_cer(x, y)
+# 	total = numel(x);
+# 	assert(total == numel(y));
+# 	c_diff = x - y;
+# 	cer = (numel(c_diff(c_diff != 0))/total) * 100;
+# endfunction
+
+%%%
+% Program
+%%%
+
+% Če je spodnja spremenljivka definirana, želimo le validirati
+% obstoječa vektorja 'x' (po možnosti tudi 'y'). Sicer
+% dekodirnik deluje samostojno - bere eno ali dve vhodni zvočni
+% datoteki in zapiše dekodirano sporočilo.
+if (exist("VALIDATING_CODING", "var") != 1)
+	VALIDATING_CODING = false;
+endif
+
+if (!VALIDATING_CODING)
+	disp("-- Dekodirni parametri -------");
+	printf("frame_len = %d\n", sf.param.frame_len);
+	printf("rand_func = %s()\n", func2str(sf.param.rand_func));
+	printf("rand_seed = %d\n\n", sf.param.rand_seed);
+
+	% Začni štoparico za meritev časa dekodiranja.
+	tic
+endif
+
+%%%
+disp("-- DSSS dekodiranje ----------");
+%%%
+
+if (!VALIDATING_CODING)
+	printf("de.input_audio = %s\n", sf.de.input_audio);
+	[y, ~] = audioread(sf.de.input_audio);
+endif
+
+if (sf.de.use_input_audio)
+	if (!VALIDATING_CODING)
+		printf("en.input_audio = %s\n", sf.en.input_audio);
+		[x, ~] = audioread(sf.en.input_audio);
+	endif
+
+	% Dekodiraj sporočilo iz podane kodirane zvočne datoteke
+	% in znanega izvirnika.
+	msg_recv = dsss_de(y, sf.param.frame_len, x);
+else
+	% Dekodiraj sporočilo le iz podane zvočne datoteke, izvirnik
+	% ni znan.
+	msg_recv = dsss_de(y, sf.param.frame_len);
+endif
+
+if (VALIDATING_CODING)
+	% Izračunaj Bit Error Rate
+	BER = get_ber(msg_recv(1:numel(msg_flat)), msg_flat, available_bits);
+	printf("BER = %.2f %%\n", BER);
+endif
+
+% Preoblikuj vektor v matriko z 8 stolpci (po en bajt).
+new_msg_size = 2^(nextpow2(numel(msg_recv)));
+msg_recv_1 = resize(msg_recv, new_msg_size, 1);
+msg_recv_2 = reshape(msg_recv_1, 8, [])';
+
+% Pretvori dvojiško matriko sporočila v desetiško.
+output_msg_padded = bi2de(msg_recv_2, "left-msb");
+
+% Odvzemi ničelne vrednosti.
+output_msg = output_msg_padded(output_msg_padded != 0);
+
+
+%%%
+% Opcijsko dekodiraj z Reed-Solomonovo kodo.
+%%%
+if (sf.param.rs_enable)
+	disp("-- RS dekodiranje ------------");
+	[output_msg, n_of_errors] = rs_de(output_msg, sf.param.rs_correctable_errors);
+	output_msg = output_msg';
+	n_of_errors
+	if (n_of_errors == -1)
+		error("RS dekodiranje neuspešno.\n");
+	endif
+
+	if (VALIDATING_CODING)
+		printf("error_rate = %.2f %%\n", (n_of_errors/numel(input_msg)) * 100);
+	endif
+endif
+
+# % Izračunaj Character Error Rate
+# CER_all = get_cer(resize(input_msg_before_rs, numel(output_msg), 1), output_msg)
+# CER_msg = get_cer(input_msg_before_rs, output_msg(1:numel(input_msg_before_rs)))
+#
+# assert(CER_msg != 100);
+
+% Prikaži čas dekodiranja.
+t_de = toc;
+printf("Čas = %.3f s\n", t_de);
+
+if (!VALIDATING_CODING)
+	% Zapiši dekodirano sporočilo
+	file_write(output_msg, sf.de.output_file);
+	printf("\nShranjujem novo datoteko ‘%s’.\n", sf.de.output_file);
+else
+	disp("\nValidacija kodiranja sporočila uspešna.\n");
+endif
