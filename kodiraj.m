@@ -114,5 +114,7 @@ dekodiraj
 VALIDATING_CODING = false;
 
 % Validacija uspešna, shrani vzorce s sporočilom v izhodni posnetek.
-audiowrite(sf.en.output_audio, y, fs);
-printf("Shranjujem novi posnetek ‘%s’.\n", sf.en.output_audio);
+if (isfield(sf.en, "output_audio"))
+	audiowrite(sf.en.output_audio, y, fs);
+	printf("Shranjujem novi posnetek ‘%s’.\n", sf.en.output_audio);
+endif

@@ -123,9 +123,11 @@ endif
 printf("# čas dekodiranja = %.3f s\n", toc);
 
 if (!VALIDATING_CODING)
-	% Zapiši dekodirano sporočilo
-	file_write(output_msg, sf.de.output_file);
-	printf("\nShranjujem novo datoteko ‘%s’.\n", sf.de.output_file);
+	% Dekodiranje uspešno, shrani dekodirano sporočilo
+	if (isfield(sf.de, "input_audio"))
+		file_write(output_msg, sf.de.output_file);
+		printf("\nShranjujem novo datoteko ‘%s’.\n", sf.de.output_file);
+	endif
 else
 	disp("\nValidacija kodiranja sporočila uspešna.\n");
 endif
