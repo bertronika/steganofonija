@@ -66,6 +66,14 @@ Validacija kodiranja sporočila uspešna.
 Shranjujem novi posnetek ‘demo/skrivnost.wav’.
 ```
 
+## Primer signalne analize
+
+Za demonstracijo je bil uporabljen 30-sekundni posnetek 400 Hz sinusne funkcije, v katerega je bilo z normalno porazdeljenim šumom kodiranih 72 bitov.
+
+![Amplitudni potek](static/demo1.png)
+
+![Spektralna analiza](static/demo2.png)
+
 ## Zahteve
 
 Poleg programa [Octave](https://octave.org/) sta zanj potrebovana še sledeča paketa:

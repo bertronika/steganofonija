@@ -103,9 +103,9 @@ if (SAV)
 	H1 = figure("visible", "off");
 else
 	H1 = figure;
-	pos = get(H1, 'Position');
-	set(H1, 'Position', [pos(1), pos(2), pos(3)*2, pos(4)]);
 endif
+pos = get(H1, 'Position');
+set(H1, 'Position', [pos(1), pos(2), pos(3)*1.5, pos(4)]);
 draw_amplitude(x, y, fs);
 
 if (SAV)
@@ -142,10 +142,10 @@ draw_spectrogram(y_reduced, fs, "Spektrogram predelanega posnetka");
 printf("# čas analize = %.3f s\n", toc);
 
 if (SAV)
-	img_settings = ["-r100"];
+	img_settings = ["-r80"];
 
 	disp("# shranjujem v slikovne datoteke");
-	print(H1, img_settings, "sf_ampl.png");
+	print(H1, "-r90", "sf_ampl.png");
 	print(H2, img_settings, "sf_spekter_x.png");
 	print(H3, img_settings, "sf_spekter_y.png");
 	print(H4, img_settings, "sf_spektrogram_x.png");
