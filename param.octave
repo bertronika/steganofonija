@@ -47,9 +47,12 @@ sf.param.rand_func = @randn;
 sf.param.strength = 0.024;
 
 % Omogoči Reed-Solomonovo kodiranje
-sf.param.rs_enable = true;
+# sf.param.rs_enable = true;
 sf.param.rs_enable = false;
 
 % Največje št. napak, ki naj jih RS skuša odpraviti
 % (višja vrednost podaljša kodirano sporočilo)
 sf.param.rs_correctable_errors = 4;
+
+% Shrani posamezen graf analize kodiranja v svojo datoteko
+sf.param.save_graphs_to_files = false;
