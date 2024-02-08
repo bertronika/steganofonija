@@ -102,7 +102,11 @@ x_info  = audioinfo(sf.en.input_audio);
 BPS = needed_bits/x_info.Duration
 
 % Vgradi sporočilo v posnetek.
+x = x(:);
 [y, SNR, eff] = dsss_en(x, msg_flat, sf.param.strength, sf.param.frame_len);
+if x_info.NumChannels == 2
+	y = reshape(y, numel(y)/2, 2);
+endif
 printf("SNR = %.2f dB\n", SNR);
 printf("efficiency = %.2f %%\n", eff);
 
@@ -113,8 +117,8 @@ printf("# čas kodiranja = %.3f s\n", toc);
 % ki pa bo uspešnost kodiranja le validiral.
 VALIDATING_CODING = true;
 dekodiraj
-analiziraj
-VALIDATING_CODING = false;
+#analiziraj
+VALIDATING_CODING = true;
 
 % Validacija uspešna, shrani vzorce s sporočilom v izhodni posnetek.
 if (isfield(sf.en, "output_audio"))
