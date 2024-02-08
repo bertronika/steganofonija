@@ -19,7 +19,7 @@ RAND_SEED = sf.param.rand_seed;
 % se lahko vgradi v podani zvočni posnetek.
 function n = n_of_embeddable_bits(input_audio, frame_len)
 	x_info = audioinfo(input_audio);
-	x_len = x_info.TotalSamples;
+	x_len = x_info.TotalSamples * x_info.NumChannels;
 	n = fix(x_len/frame_len);
 endfunction
 
