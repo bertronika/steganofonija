@@ -18,13 +18,17 @@ Pred uporabo programa je potrebno urediti datoteko `param.octave`. V njej se nah
 Posamezno skriptno datoteko se požene s klicem njenega imena brez končnice v Octave konzoli, ali pa s podajanjem datotečnega imena kot argument programu `octave` v terminalu.
 
 
-## Delovanje
+## Uporaba
 
 Izvedba kodirnega skripta potrebuje vhoden zvočni posnetek in besedilno datoteko s sporočilom.
 
 Dekodirni skript potrebuje vhoden zvočni posnetek s skritim sporočilom, morda pa tudi prvoten posnetek -- odvisno od jakosti kodiranja.
 
-Klic skripta `kodiraj` med delovanjem zažene tudi druga dva (`dekodiraj` in `analiziraj`), da se dobi vpogled v sestavo novega posnetka in statistiko. Pri kodiranju si lahko še privoščimo primerjave, saj imamo oba posnetka in izvorno sporočilo -- dekodiranje nam pridela le skope rezultate analize.
+Klic skripta `kodiraj` med delovanjem zažene tudi druga dva (`dekodiraj` in `analiziraj`), da se dobi vpogled v sestavo novega posnetka in statistiko. Pri kodiranju si lahko še privoščimo primerjave, saj imamo oba posnetka in izvorno sporočilo - dekodiranje nam pridela le skope rezultate analize.
+
+### Reed-Solomonovo kodiranje
+
+Pri kodiranju in dekodiranju posnetkov se lahko omogoči Reed-Solomonovo kodiranje. To sporočilu doda redundanco, ki omogoča njegovo dekodiranje tudi ob primeru izgube nekaterih bitov. Količina napak, ki jih lahko odpravi, je nastavljiva - ker kodiranje znatno poveča dolžino sporočila, bo število odpravljivih napak morda treba zmanjšati.
 
 
 ## Primer izvedbe
