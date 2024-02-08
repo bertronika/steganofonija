@@ -1,11 +1,12 @@
 source("param.octave");
 
+files = cat(1, glob("sf_*.png"), {sf.en.output_audio; sf.de.output_file});
+
 disp("Brišem izhodne datoteke.")
-
-if (exist(sf.en.output_audio, "file") == 2)
-	delete(sf.en.output_audio)
-endif
-
-if (exist(sf.de.output_file, "file") == 2)
-	delete(sf.de.output_file)
-endif
+for n = 1:numel(files)
+	f = files{n};
+	if (exist(f, "file") == 2)
+		disp([" - " f]);
+		delete(f);
+	endif
+endfor
