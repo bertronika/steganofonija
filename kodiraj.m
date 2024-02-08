@@ -102,8 +102,7 @@ x_info  = audioinfo(sf.en.input_audio);
 BPS = needed_bits/x_info.Duration
 
 % Vgradi sporočilo v posnetek.
-x = x(:);
-[y, SNR, eff] = dsss_en(x, msg_flat, sf.param.strength, sf.param.frame_len);
+[y, SNR, eff] = dsss_en(x(:), msg_flat, sf.param.strength, sf.param.frame_len);
 if x_info.NumChannels == 2
 	y = reshape(y, numel(y)/2, 2);
 endif
