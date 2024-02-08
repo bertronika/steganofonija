@@ -49,11 +49,11 @@ function [ampl_max, freq_max] = draw_whole_spectrum(x, fs, name)
 	# amplitudes = abs(fftshift(fft(x, Nfft)) / N);
 	amplitudes = abs(fftshift(fft(x .* hamming(N), Nfft)) / N);
 
-	semilogy(frequencies, amplitudes);
+	semilogy(frequencies/1000, amplitudes);
 	# plot(frequencies, 10 * log10(amplitudes));
 
-	xlim([ frequencies(1) frequencies(end) ]);
-	xlabel("Frekvenca (Hz)");
+	xlim([ frequencies(1) frequencies(end) ]/1000);
+	xlabel("Frekvenca (kHz)");
 	ylabel("Amplituda (dB)");
 	title(name); % TODO annotation("textbox") ?
 	grid on;
@@ -71,9 +71,11 @@ function draw_spectrogram(x, fs, name)
 	window = ceil(100 * fs/1000);
 	N = 2^nextpow2(window);
 
-	specgram(x, N, fs, window, window - step);
+	[S, f, t] = specgram(x, N, fs, window, window - step);
+	imagesc(t, f/1000, 20*log10(abs(S)));
+	set(gca(), "ydir", "normal");
 	xlabel("Čas (s)");
-	ylabel("Frekvenca (Hz)");
+	ylabel("Frekvenca (kHz)");
 	title(name);
 endfunction
 
