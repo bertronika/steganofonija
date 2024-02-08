@@ -117,8 +117,8 @@ printf("# čas kodiranja = %.3f s\n", toc);
 % ki pa bo uspešnost kodiranja le validiral.
 VALIDATING_CODING = true;
 dekodiraj
-#analiziraj
-VALIDATING_CODING = true;
+analiziraj
+VALIDATING_CODING = false;
 
 % Validacija uspešna, shrani vzorce s sporočilom v izhodni posnetek.
 if (isfield(sf.en, "output_audio"))
