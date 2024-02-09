@@ -97,13 +97,15 @@ printf("input_audio = %s\n", sf.en.input_audio);
 % Naloži vzorce vhodnega posnetka.
 [x, fs] = audioread(sf.en.input_audio);
 x_info  = audioinfo(sf.en.input_audio);
+duration = x_info.Duration
+channels = x_info.NumChannels
 
 % Izračunaj št. bitov sporočila na sekundo posnetka
-BPS = needed_bits/x_info.Duration
+BPS = needed_bits/duration
 
 % Vgradi sporočilo v posnetek.
 [y, SNR, eff] = dsss_en(x(:), msg_flat, sf.param.strength, sf.param.frame_len);
-if x_info.NumChannels == 2
+if channels == 2
 	y = reshape(y, numel(y)/2, 2);
 endif
 printf("SNR = %.2f dB\n", SNR);
