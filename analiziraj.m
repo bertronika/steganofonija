@@ -92,28 +92,29 @@ close all;
 disp("-- Analiza signalov ---------");
 tic;
 
-if x_info.NumChannels == 2        %če ima posnetek dva kanala, za izdelavo analize izračunamo njuno povprečje
-  xavg = (x(:,1)+x(:,2))/2;
-  yavg = (y(:,1)+y(:,2))/2;
+% Če ima posnetek dva kanala, za izdelavo analize izračunamo njuno povprečje
+if x_info.NumChannels == 2
+	xavg = (x(:,1)+x(:,2))/2;
+	yavg = (y(:,1)+y(:,2))/2;
 endif
 
 if (numel(x)/fs > 60)
 	disp("# Omejujem dolžino posnetkov na 60 s pri FFT analizah");
 	if x_info.NumChannels == 2
-    x_reduced = xavg(1:60 * fs);
-    y_reduced = yavg(1:60 * fs);
-  else
-    x_reduced = x(1:60 * fs);
-    y_reduced = y(1:60 * fs);
-  endif
+		x_reduced = xavg(1:60 * fs);
+		y_reduced = yavg(1:60 * fs);
+	else
+		x_reduced = x(1:60 * fs);
+		y_reduced = y(1:60 * fs);
+	endif
 else
-  if x_info.NumChannels == 2
-    x_reduced = xavg;
-	  y_reduced = yavg;
-  else
-    x_reduced = x;
-	  y_reduced = y;
-  endif
+	if x_info.NumChannels == 2
+		x_reduced = xavg;
+		y_reduced = yavg;
+	else
+		x_reduced = x;
+		y_reduced = y;
+endif
 
 endif
 
