@@ -57,7 +57,7 @@ function msg = dsss_de(y, frame_len, x=NaN)
 		% Če imamo izvorni posnetek, ga odštejemo od predelanega.
 		% S tem lahko dekodiramo sporočilo, skrito v šumu z zelo
 		% majhno jakostjo.
-		if has_source_audio
+		if (has_source_audio)
 			frame -= x(pointer:(pointer + frame_len - 1));
 		endif
 
@@ -68,7 +68,7 @@ function msg = dsss_de(y, frame_len, x=NaN)
 		[R, ~] = xcorr(frame, noise);
 		[~, maxp] = max(abs(R));
 
-		if R(maxp) >= 0
+		if (R(maxp) >= 0)
 			msg(i) = 1;
 		else
 			msg(i) = 0;

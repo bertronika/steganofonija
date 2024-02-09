@@ -50,7 +50,7 @@ function [y, SNR, eff] = dsss_en(x, msg, strength, frame_len)
 		noise = N(pointer:(pointer + frame_len - 1));
 
 		% Dvojiško enico kodiraj kot dodatek šuma; ničlo kot odvzem
-		if i <= msg_len && msg(i) == 1
+		if (i <= msg_len && msg(i) == 1)
 			frame += noise;
 		else
 			frame -= noise;

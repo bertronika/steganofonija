@@ -93,7 +93,7 @@ disp("-- Analiza signalov ---------");
 tic;
 
 % Če ima posnetek dva kanala, za izdelavo analize izračunaj njuno povprečje
-if channels == 2
+if (channels == 2)
 	x_averaged = (x(:,1) + x(:,2))/2;
 	y_averaged = (y(:,1) + y(:,2))/2;
 else

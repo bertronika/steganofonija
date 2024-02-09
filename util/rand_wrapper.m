@@ -6,7 +6,7 @@ function N = rand_wrapper(varargin)
 
 	N = RAND_FUNC(varargin{:});
 
-	if strcmp(func2str(RAND_FUNC), "rand")
+	if (strcmp(func2str(RAND_FUNC), "rand"))
 		N -= 0.5;
 	endif
 endfunction

@@ -115,7 +115,7 @@ printf("# čas kodiranja = %.3f s\n", toc);
 
 % Če izvorni posnetek vsebuje dva kanala, preoblikuj
 % sploščen vektor nazaj v dvostolpčno matriko
-if channels == 2
+if (channels == 2)
 	y = reshape(y, numel(y)/2, 2);
 endif
 
