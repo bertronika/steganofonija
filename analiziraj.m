@@ -94,28 +94,20 @@ tic;
 
 % Če ima posnetek dva kanala, za izdelavo analize izračunaj njuno povprečje
 if channels == 2
-	xavg = (x(:,1)+x(:,2))/2;
-	yavg = (y(:,1)+y(:,2))/2;
+	x_averaged = (x(:,1) + x(:,2))/2;
+	y_averaged = (y(:,1) + y(:,2))/2;
+else
+	x_averaged = x;
+	y_averaged = y;
 endif
 
 if (numel(x)/fs > 60)
 	disp("# Omejujem dolžino posnetkov na 60 s pri FFT analizah");
-	if channels == 2
-		x_reduced = xavg(1:60 * fs);
-		y_reduced = yavg(1:60 * fs);
-	else
-		x_reduced = x(1:60 * fs);
-		y_reduced = y(1:60 * fs);
-	endif
+	x_reduced = x_averaged(1:60 * fs);
+	y_reduced = y_averaged(1:60 * fs);
 else
-	if channels == 2
-		x_reduced = xavg;
-		y_reduced = yavg;
-	else
-		x_reduced = x;
-		y_reduced = y;
-endif
-
+	x_reduced = x_averaged;
+	y_reduced = y_averaged;
 endif
 
 if (SAV)
@@ -125,12 +117,7 @@ else
 endif
 pos = get(H1, 'Position');
 set(H1, 'Position', [pos(1), pos(2), pos(3)*1.5, pos(4)]);
-
-if channels == 2
-  draw_amplitude(xavg, yavg, fs);
-else
-  draw_amplitude(x, y, fs);
-endif
+draw_amplitude(x_averaged, y_averaged, fs);
 
 if (SAV)
 	H2 = figure("visible", "off");
