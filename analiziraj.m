@@ -23,6 +23,8 @@ function draw_amplitude(x, y, fs)
 	hold on;
 	plot(t, x);
 
+	xlim([ t(1) t(end) ]);
+	ylim([ -1.5 1.5 ]);
 	ylabel("Rel. amplituda");
 	xlabel("Čas (s)");
 	title("Časovni potek amplitude");
