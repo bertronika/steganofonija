@@ -103,16 +103,21 @@ channels = x_info.NumChannels
 % Izračunaj št. bitov sporočila na sekundo posnetka
 BPS = needed_bits/duration
 
-% Vgradi sporočilo v posnetek.
+% Vgradi sporočilo v posnetek. Morebitno dvostolpčno dvokanalno
+% matriko splošči v vektor.
 [y, SNR, eff] = dsss_en(x(:), msg_flat, sf.param.strength, sf.param.frame_len);
-if channels == 2
-	y = reshape(y, numel(y)/2, 2);
-endif
+
 printf("SNR = %.2f dB\n", SNR);
 printf("efficiency = %.2f %%\n", eff);
 
 % Prikaži čas kodiranja.
 printf("# čas kodiranja = %.3f s\n", toc);
+
+% Če izvorni posnetek vsebuje dva kanala, preoblikuj
+% sploščen vektor nazaj v dvostolpčno matriko
+if channels == 2
+	y = reshape(y, numel(y)/2, 2);
+endif
 
 % Preveri uspešnost kodiranja s klicem dekodirnika,
 % ki pa bo uspešnost kodiranja le validiral.
