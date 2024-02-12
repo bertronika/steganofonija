@@ -26,7 +26,6 @@ sf.de.input_audio = sf.en.output_audio;
 sf.de.output_file = "demo/sporocilo.txt";
 
 % Uporabi vhodni posnetek za občutljivejše dekodiranje
-sf.de.use_input_audio = true;
 sf.de.use_input_audio = false;
 
 
@@ -47,7 +46,6 @@ sf.param.rand_func = @randn;
 sf.param.strength = 0.024;
 
 % Omogoči Reed-Solomonovo kodiranje
-# sf.param.rs_enable = true;
 sf.param.rs_enable = false;
 
 % Največje št. napak, ki naj jih RS skuša odpraviti
