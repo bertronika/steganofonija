@@ -1,6 +1,10 @@
 source("param.octave");
 
-files = cat(1, glob("sf_*.png"), {sf.en.output_audio; sf.de.output_file});
+files = cat(1,
+            glob("sf_*.png"),
+            glob("demo/skrivnost?.wav"),
+            {sf.en.output_audio; sf.de.output_file}
+);
 
 disp("Brišem izhodne datoteke.")
 for n = 1:numel(files)

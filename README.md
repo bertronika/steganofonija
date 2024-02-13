@@ -39,6 +39,8 @@ V praksi najbolj zaželjena bi bila prva metoda, saj bi prejemniku rabili poslat
 
 Bolje se izkaže druga metoda - če ima prejemnik kodiranega sporočila pri sebi še izvirno sporočilo in ga uporabi pri dekodiranju, je lahko jakost kodiranja tako nizka, da tudi ob tihih delih posnetka ni slišnega kodiranega šuma.
 
+Analizo obeh metod se lahko izvede s klicem skriptov v imeniku *demo*: `run demo/primer1` in `run demo/primer2`.
+
 ### Reed-Solomonovo kodiranje
 
 Pri kodiranju in dekodiranju posnetkov se lahko omogoči Reed-Solomonovo kodiranje. To sporočilu doda redundanco, ki omogoča njegovo dekodiranje tudi ob primeru izgube nekaterih bitov. Količina napak, ki jih lahko odpravi, je nastavljiva - ker kodiranje znatno poveča dolžino sporočila, bo število odpravljivih napak morda treba zmanjšati.
