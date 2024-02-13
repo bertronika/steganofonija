@@ -5,9 +5,6 @@
 % Datoteka vhodnega sporočila
 sf.en.input_file = "demo/skrivnost.txt";
 
-% Besedilni niz vhodnega sporočila - upoštevan le, če INPUT_FILE ni definiran
-# sf.en.input_msg = "Zbor ob 8. pred Vidmarjevo pisarno";
-
 % Vhodni posnetek, v katerega se kodira sporočilo
 sf.en.input_audio = "demo/400Hz30.wav";
 
