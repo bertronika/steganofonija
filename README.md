@@ -26,6 +26,19 @@ Dekodirni skript potrebuje vhoden zvočni posnetek s skritim sporočilom, morda 
 
 Klic skripta `kodiraj` med delovanjem zažene tudi druga dva (`dekodiraj` in `analiziraj`), da se dobi vpogled v sestavo novega posnetka in statistiko. Pri kodiranju si lahko še privoščimo primerjave, saj imamo oba posnetka in izvorno sporočilo - dekodiranje nam pridela le skope rezultate analize.
 
+### Načina delovanja dekodirnika
+
+Sporočila se lahko dekodirajo na dva načina:
+
+- le iz posnetka s kodiranim sporočilom
+- iz posnetka s kodiranim sporočilom in izvirnega posnetka
+
+Med uporabo prvega in drugega ločuje spremenljivka `sf.de.use_input_audio`, ki dekodirniku pove, ali naj uporabi vhodni posnetek, definiran pri parametrih kodirnega postopka.
+
+V praksi najbolj zaželjena bi bila prva metoda, saj bi prejemniku rabili poslati le navidez običajen posnetek, iz katerega bi izločili sporočilo. Eksperimentiranje s programom pa je pokazalo, da jakosti kodiranja ni mogoče znižati na tak nivo, da bi ga algoritem še zaznal, človeško uho pa ne - šum, uporabljen pri kodiranju, je človeku še slišen, ko ga dekodirnik ni več sposoben uporabiti.
+
+Bolje se izkaže druga metoda - če ima prejemnik kodiranega sporočila pri sebi še izvirno sporočilo in ga uporabi pri dekodiranju, je lahko jakost kodiranja tako nizka, da tudi ob tihih delih posnetka ni slišnega kodiranega šuma.
+
 ### Reed-Solomonovo kodiranje
 
 Pri kodiranju in dekodiranju posnetkov se lahko omogoči Reed-Solomonovo kodiranje. To sporočilu doda redundanco, ki omogoča njegovo dekodiranje tudi ob primeru izgube nekaterih bitov. Količina napak, ki jih lahko odpravi, je nastavljiva - ker kodiranje znatno poveča dolžino sporočila, bo število odpravljivih napak morda treba zmanjšati.
