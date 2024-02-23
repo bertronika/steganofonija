@@ -61,14 +61,13 @@ function msg = dsss_de(y, frame_len, x=NaN)
 			frame -= x(pointer:(pointer + frame_len - 1));
 		endif
 
-		% Opravi križno korelacijo med okvirjem predelanega posnetka
-		% in šumom. Za tem najdi indeks največjega vzorca korelacijskega
-		% vektorja - mesto, kjer je podobnost največja. Če je tam vrednost
-		% korelacije pozitivna, je na tem mestu shranjena enica; sicer ničla.
+		% Opravi križno korelacijo med okvirjem vzorcev predelanega posnetka
+		% in šumom. Vrednost točno na indeksu velikosti okvirja odloča o
+		% logični vrednosti - če je tam korelacija pozitivna, je na tem
+		% mestu shranjena enica; sicer ničla.
 		[R, ~] = xcorr(frame, noise);
-		[~, maxp] = max(abs(R));
 
-		if (R(maxp) >= 0)
+		if (R(frame_len) >= 0)
 			msg(i) = 1;
 		else
 			msg(i) = 0;
