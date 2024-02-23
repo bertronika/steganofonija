@@ -49,5 +49,8 @@ sf.param.rs_enable = false;
 % (višja vrednost podaljša kodirano sporočilo)
 sf.param.rs_correctable_errors = 4;
 
+% Analiziraj podatke in izdelaj grafe
+sf.param.create_graphs = false;
+
 % Shrani posamezen graf analize kodiranja v svojo datoteko
 sf.param.save_graphs_to_files = false;

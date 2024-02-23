@@ -13,6 +13,7 @@ sf.param.rand_seed = 1932;
 sf.param.rand_func = @randn;
 sf.param.strength = 8e-9;
 sf.param.rs_enable = false;
+sf.param.create_graphs = true;
 sf.param.save_graphs_to_files = false;
 
 DEMO_MODE = true;
