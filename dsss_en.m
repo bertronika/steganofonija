@@ -30,7 +30,20 @@ function [y, SNR, eff] = dsss_en(x, msg, strength, frame_len)
 	embeddable_bits = fix(x_len/frame_len);
 
 	% Tvori vektor psevdo-naključnega šuma z izbrano jakostjo
-	N = rand_wrapper(x_len, 1) * strength;
+  bitlen = frame_len/1023;
+  n = gold(10)(69 ,:);
+  N = zeros(1023*bitlen,1);
+
+  i=1;
+  in=1;
+  while i<=1023
+    for j=0:(bitlen)
+      N(in+j)=n(i);
+    endfor
+    in=in+j;
+    i++;
+  endwhile
+  N = N(1:numel(N)-1);
 
 	% Vektor predelanega posnetka
 	y = zeros(frame_len * embeddable_bits, 1);
@@ -46,14 +59,11 @@ function [y, SNR, eff] = dsss_en(x, msg, strength, frame_len)
 		% Okvir zvočnega posnetka
 		frame = x(pointer:(pointer + frame_len - 1));
 
-		% Okvir šuma enake dolžine kot posnetek
-		noise = N(pointer:(pointer + frame_len - 1));
-
 		% Dvojiško enico kodiraj kot dodatek šuma; ničlo kot odvzem
 		if (i <= msg_len && msg(i) == 1)
-			frame += noise;
+			frame += N;
 		else
-			frame -= noise;
+			frame -= N;
 		endif
 
 		% Dobljeno mešanico vloži v nov vektor predelanega posnetka

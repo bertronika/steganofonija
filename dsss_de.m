@@ -44,15 +44,25 @@ function msg = dsss_de(y, frame_len, x=NaN)
 	msg = zeros(embeddable_bits, 1);
 
 	% Tvori vektor psevdo-naključnega šuma
-	N = rand_wrapper(y_len, 1);
+	bitlen = frame_len/1023;
+  n = gold(10)(69,:);
+  N = zeros(1023*bitlen,1);
+
+  i=1;
+  in=1;
+  while i<=1023
+    for j=0:(bitlen)
+      N(in+j)=n(i);
+    endfor
+    in=in+j;
+    i++;
+  endwhile
+  N = N(1:numel(N)-1);
 
 	pointer = 1;
 	for i = 1:(embeddable_bits - 1)
 		% Okvir zvočnega posnetka
 		frame = y(pointer:(pointer + frame_len - 1));
-
-		% Okvir šuma enake dolžine kot posnetek
-		noise = N(pointer:(pointer + frame_len - 1));
 
 		% Če imamo izvorni posnetek, ga odštejemo od predelanega.
 		% S tem lahko dekodiramo sporočilo, skrito v šumu z zelo
@@ -65,7 +75,7 @@ function msg = dsss_de(y, frame_len, x=NaN)
 		% in šumom. Vrednost točno na indeksu velikosti okvirja odloča o
 		% logični vrednosti - če je tam korelacija pozitivna, je na tem
 		% mestu shranjena enica; sicer ničla.
-		[R, ~] = xcorr(frame, noise);
+		[R, ~] = xcorr(frame, N);
 
 		if (R(frame_len) >= 0)
 			msg(i) = 1;
