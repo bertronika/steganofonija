@@ -31,13 +31,8 @@ sf.de.use_input_audio = false;
 %%%
 
 % Velikost okvirjev zvočne datoteke, v katere se kodira sporočilo
-sf.param.frame_len = 1024*5;
-
-% Seme generatorja psevdonaključnih števil
-sf.param.rand_seed = 1932;
-
-% Ime funkcije za tvorbo psevdonaključnega šuma
-sf.param.rand_func = @randn;
+%mora biti nujno večkratnik števila 1023!!!!!!!!
+sf.param.frame_len = 1023*1;
 
 % Moč kodiranja sporočila v datoteko
 sf.param.strength = 0.024;

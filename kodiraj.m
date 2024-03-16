@@ -10,10 +10,6 @@ endif
 
 pkg load communications; % Funkcija de2bi()
 
-global RAND_FUNC RAND_SEED;
-RAND_FUNC = sf.param.rand_func;
-RAND_SEED = sf.param.rand_seed;
-
 %%%
 % Lokalne funkcije
 %%%
@@ -32,8 +28,6 @@ endfunction
 
 disp("-- Kodirni parametri ---------");
 printf("frame_len = %d\n", sf.param.frame_len);
-printf("rand_func = %s()\n", func2str(sf.param.rand_func));
-printf("rand_seed = %d\n", sf.param.rand_seed);
 printf("strength  = %d\n\n", sf.param.strength);
 
 % Naloži izvorno besedilno sporočilo v vrstični vektor
