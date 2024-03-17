@@ -45,6 +45,8 @@ function [y, SNR, eff] = dsss_en(x, msg, strength, frame_len)
   endwhile
   N = N(1:numel(N)-1);
 
+  N *= strength;
+
 	% Vektor predelanega posnetka
 	y = zeros(frame_len * embeddable_bits, 1);
 

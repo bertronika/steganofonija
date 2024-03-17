@@ -10,6 +10,7 @@ endif
 
 pkg load communications; % Funkcija bi2de()
 
+sf.param.frame_len = size;
 %%%
 % Lokalne funkcije
 %%%
@@ -44,8 +45,6 @@ endif
 if (!VALIDATING_CODING)
 	disp("-- Dekodirni parametri -------");
 	printf("frame_len = %d\n", sf.param.frame_len);
-	printf("rand_func = %s()\n", func2str(sf.param.rand_func));
-	printf("rand_seed = %d\n\n", sf.param.rand_seed);
 
 	% Začni štoparico za meritev časa dekodiranja.
 	tic
