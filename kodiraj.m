@@ -110,12 +110,10 @@ function kodiraj()
 
 	% Preveri uspešnost kodiranja s klicem dekodirnika,
 	% ki pa bo uspešnost kodiranja le validiral.
-	VALIDATING_CODING = true;
 	dekodiraj(true)
-	if (sf.param.create_graphs)
+	if (isfield(sf.param, "create_graphs") && sf.param.create_graphs == true)
 		analiziraj
 	endif
-	VALIDATING_CODING = false;
 
 	% Validacija uspešna, shrani vzorce s sporočilom v izhodni posnetek.
 	if (isfield(sf.en, "output_audio"))

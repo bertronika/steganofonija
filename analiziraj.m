@@ -13,6 +13,9 @@ function analiziraj(file1=0, file2=0)
 		global x y fs channels;
 	endif
 
+	save_graph = isfield(sf.param, "save_graphs_to_files") && ...
+	             sf.param.save_graphs_to_files == true;
+
 	close all;
 
 	disp("-- Analiza signalov ---------");
@@ -36,7 +39,7 @@ function analiziraj(file1=0, file2=0)
 		y_reduced = y_averaged;
 	endif
 
-	if (sf.param.save_graphs_to_files)
+	if (save_graph)
 		H1 = figure("visible", "off");
 	else
 		H1 = figure;
@@ -45,7 +48,7 @@ function analiziraj(file1=0, file2=0)
 	set(H1, 'Position', [pos(1), pos(2), pos(3)*1.5, pos(4)]);
 	draw_amplitude(x_averaged, y_averaged, fs);
 
-	if (sf.param.save_graphs_to_files)
+	if (save_graph)
 		H2 = figure("visible", "off");
 	else
 		H2 = figure;
@@ -55,21 +58,21 @@ function analiziraj(file1=0, file2=0)
 	endif
 	draw_whole_spectrum(x_reduced, fs, "Močnostni spekter izvirnega posnetka");
 
-	if (sf.param.save_graphs_to_files)
+	if (save_graph)
 		H3 = figure("visible", "off");
 	else
 		subplot(2, 2, 2);
 	endif
 	draw_whole_spectrum(y_reduced, fs, "Močnostni spekter predelanega posnetka");
 
-	if (sf.param.save_graphs_to_files)
+	if (save_graph)
 		H4 = figure("visible", "off");
 	else
 		subplot(2, 2, 3);
 	endif
 	draw_spectrogram(x_reduced, fs, "Spektrogram izvirnega posnetka");
 
-	if (sf.param.save_graphs_to_files)
+	if (save_graph)
 		H5 = figure("visible", "off");
 	else
 		subplot(2, 2, 4);
@@ -78,7 +81,7 @@ function analiziraj(file1=0, file2=0)
 
 	printf("# čas analize = %.3f s\n", toc);
 
-	if (sf.param.save_graphs_to_files)
+	if (save_graph)
 		img_settings = ["-r80"];
 
 		disp("# shranjujem v slikovne datoteke");

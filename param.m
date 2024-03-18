@@ -51,7 +51,9 @@ sf.param.strength = 0.024;
 sf.param.rs_correctable_errors = 4;
 
 % Analiziraj podatke in izdelaj grafe
-sf.param.create_graphs = false;
+% Za izklop se spremenljivko lahko zakomentira
+# sf.param.create_graphs = true;
 
 % Shrani posamezen graf analize kodiranja v svojo datoteko
-sf.param.save_graphs_to_files = false;
+% Za izklop se spremenljivko lahko zakomentira
+# sf.param.save_graphs_to_files = true;
