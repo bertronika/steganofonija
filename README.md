@@ -13,7 +13,7 @@ Sestavljajo ga sledeče ključne skriptne datoteke:
 - `analiziraj` (primerja amplitudna poteka, izriše Fourierovo analizo spektra in izdela spektrograma vhodnega in izhodnega posnetka)
 - `ponastavi` (izbriše datoteke, ki jih je program generiral)
 
-Pred uporabo programa je potrebno urediti datoteko `param.octave`. V njej se nahajajo vse uporabniške nastavitve.
+Pred uporabo programa je potrebno urediti datoteko `param.m`. V njej se nahajajo vse uporabniške nastavitve.
 
 Posamezno skriptno datoteko se požene s klicem njenega imena brez končnice v Octave konzoli, ali pa s podajanjem datotečnega imena kot argument programu `octave` v terminalu.
 

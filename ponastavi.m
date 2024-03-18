@@ -1,4 +1,4 @@
-source("param.octave");
+source("param.m");
 
 files = cat(1,
             glob("sf_*.png"),

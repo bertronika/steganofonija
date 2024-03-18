@@ -1,5 +1,5 @@
 cd ..
-source("param.octave");
+source("param.m");
 
 disp("\n== Demonstracija dekodiranja brez uporabe izvornega posnetka ==");
 

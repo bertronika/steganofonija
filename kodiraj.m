@@ -5,7 +5,7 @@
 addpath("util/");
 
 if (!(exist("DEMO_MODE", "var") == 1))
-	source("param.octave");
+	source("param.m");
 endif
 
 pkg load communications; % Funkcija de2bi()
