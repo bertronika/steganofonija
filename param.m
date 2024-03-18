@@ -1,4 +1,4 @@
-clear sf; global sf;
+clear -g sf; global sf;
 
 %%%
 % Parametri kodirnega postopka
