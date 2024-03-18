@@ -48,7 +48,7 @@ sf.param.strength = 0.024;
 % Odkomentirana spodnja spremenljivka omogoči Reed-Solomonovo
 % kodiranje. Število poda največje št. napak, ki naj jih RS skuša
 % odpraviti (višja vrednost podaljša kodirano sporočilo)
-sf.param.rs_correctable_errors = 4;
+# sf.param.rs_correctable_errors = 4;
 
 % Analiziraj podatke in izdelaj grafe
 % Za izklop se spremenljivko lahko zakomentira
