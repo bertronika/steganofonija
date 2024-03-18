@@ -38,10 +38,12 @@ function dekodiraj(validating_encoding=false)
 		[y, ~] = audioread(sf.de.input_audio);
 	endif
 
-	if (sf.de.use_input_audio)
+	if (isfield(sf.de, "original_audio"))
 		if (!validating_encoding)
-			printf("en.input_audio = %s\n", sf.en.input_audio);
-			[x, ~] = audioread(sf.en.input_audio);
+			printf("en.input_audio = %s\n", sf.de.original_audio);
+			[x, ~] = audioread(sf.de.original_audio);
+		else
+			global x;
 		endif
 
 		% Dekodiraj sporočilo iz podane kodirane zvočne datoteke

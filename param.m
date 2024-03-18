@@ -1,4 +1,4 @@
-global sf;
+clear sf; global sf;
 
 %%%
 % Parametri kodirnega postopka
@@ -21,11 +21,12 @@ sf.en.output_audio = "demo/skrivnost.wav";
 % Vhodni posnetek, ki vsebuje sporočilo
 sf.de.input_audio = sf.en.output_audio;
 
+% Izvirni posnetek za občutljivejše dekodiranje
+% Spremenljivko se lahko zakomentira, če izvirnega posnetka nimamo
+sf.de.original_audio = sf.en.input_audio;
+
 % Datoteka dekodiranega sporočila
 sf.de.output_file = "demo/sporocilo.txt";
-
-% Uporabi vhodni posnetek za občutljivejše dekodiranje
-sf.de.use_input_audio = false;
 
 
 %%%
