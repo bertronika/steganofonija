@@ -10,10 +10,6 @@ endif
 
 pkg load communications; % Funkcija de2bi()
 
-global RAND_FUNC RAND_SEED;
-RAND_FUNC = sf.param.rand_func;
-RAND_SEED = sf.param.rand_seed;
-
 %%%
 % Lokalne funkcije
 %%%

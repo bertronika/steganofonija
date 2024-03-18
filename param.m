@@ -1,3 +1,5 @@
+global sf;
+
 %%%
 % Parametri kodirnega postopka
 %%%
