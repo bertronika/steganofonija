@@ -2,7 +2,7 @@
 % Deloma povzeto po kodirniku/dekodirniku Akire Tamamorija (GPLv3):
 %  <https://gist.github.com/tam17aki/326cf8666338e39d4f5f9cb777e8c6c0>
 
-function dekodiraj(VALIDATING_CODING=false)
+function dekodiraj(validating_encoding=false)
 	addpath("util/");
 	global sf;
 
@@ -12,15 +12,11 @@ function dekodiraj(VALIDATING_CODING=false)
 
 	pkg load communications; % Funkcija bi2de()
 
-	% Če je spodnja spremenljivka definirana, želimo le validirati
-	% obstoječa vektorja 'x' (po možnosti tudi 'y'). Sicer
-	% dekodirnik deluje samostojno - bere eno ali dve vhodni zvočni
-	% datoteki in zapiše dekodirano sporočilo.
-	# if (exist("VALIDATING_CODING", "var") != 1)
-	# 	VALIDATING_CODING = false;
-	# endif
-
-	if (VALIDATING_CODING)
+	% Če le preverjamo (validiramo) uspešnost kodiranja, pričakujemo
+	% nekatere vektorje kodirnika kot globalne spremenljivke, da se
+	% izognemo zapisovanju in vnovičnem branju zvočnih datotek, ki
+	% so morda okvarjene.
+	if (validating_encoding)
 		% Te globalne spremenljivke pričakujemo od kodirnika.
 		global y msg_flat available_bits input_msg_text;
 	else
@@ -37,13 +33,13 @@ function dekodiraj(VALIDATING_CODING=false)
 	disp("-- DSSS dekodiranje ----------");
 	%%%
 
-	if (!VALIDATING_CODING)
+	if (!validating_encoding)
 		printf("de.input_audio = %s\n", sf.de.input_audio);
 		[y, ~] = audioread(sf.de.input_audio);
 	endif
 
 	if (sf.de.use_input_audio)
-		if (!VALIDATING_CODING)
+		if (!validating_encoding)
 			printf("en.input_audio = %s\n", sf.en.input_audio);
 			[x, ~] = audioread(sf.en.input_audio);
 		endif
@@ -57,7 +53,7 @@ function dekodiraj(VALIDATING_CODING=false)
 		msg_recv = dsss_de(y, sf.param.frame_len);
 	endif
 
-	if (VALIDATING_CODING)
+	if (validating_encoding)
 		% Izračunaj Bit Error Rate
 		BER = get_ber(msg_recv(1:numel(msg_flat)), msg_flat, available_bits);
 		printf("bit_error_rate = %.2f %%\n", BER);
@@ -89,12 +85,12 @@ function dekodiraj(VALIDATING_CODING=false)
 			error("RS dekodiranje neuspešno.\n");
 		endif
 
-		if (VALIDATING_CODING)
+		if (validating_encoding)
 			printf("rs_error_rate = %.2f %%\n", (n_of_errors/numel(input_msg)) * 100);
 		endif
 	endif
 
-	if (VALIDATING_CODING)
+	if (validating_encoding)
 		CER = get_cer(input_msg_text, output_msg(1:numel(input_msg_text)));
 		disp("-- Analiza -------------------");
 		printf("message_error_rate = %.2f %%\n", CER);
@@ -105,7 +101,7 @@ function dekodiraj(VALIDATING_CODING=false)
 	% Prikaži čas dekodiranja.
 	printf("# čas dekodiranja = %.3f s\n", toc);
 
-	if (!VALIDATING_CODING)
+	if (!validating_encoding)
 		% Dekodiranje uspešno, shrani dekodirano sporočilo
 		if (isfield(sf.de, "input_audio"))
 			file_write(output_msg, sf.de.output_file);
