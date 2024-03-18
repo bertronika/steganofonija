@@ -95,7 +95,10 @@ function dekodiraj(validating_encoding=false)
 		disp("-- Analiza -------------------");
 		printf("message_error_rate = %.2f %%\n", CER);
 		printf("extraneous_data = %.2f %%\n", (numel(output_msg)/numel(input_msg_text)) * 100);
-		# assert(CER_msg != 100);
+		if (CER == 100)
+			disp("");
+			error("Dekodiranje prekinjeno - izguba znakov je popolna.\n");
+		endif
 	endif
 
 	% Prikaži čas dekodiranja.
