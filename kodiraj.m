@@ -37,7 +37,7 @@ function kodiraj()
 	%%%
 	% Opcijsko kodiraj sporočilo z Reed-Solomonovo kodo.
 	%%%
-	if (sf.param.rs_enable)
+	if (isfield(sf.param, "rs_correctable_errors"))
 		disp("-- RS kodiranje --------------");
 		printf("input_file = %s\n", sf.en.input_file);
 		printf("correctable_errors = %d\n", sf.param.rs_correctable_errors);
@@ -65,7 +65,7 @@ function kodiraj()
 		error("Sporočilo je preveliko za vgradnjo v posnetek.\n");
 	endif
 
-	if (!sf.param.rs_enable &&
+	if (!isfield(sf.param, "rs_correctable_errors") &&
 	    rs_en(input_msg, sf.param.rs_correctable_errors, true) * 8 <= available_bits)
 		disp("# prostora je dovolj za RS");
 	endif

@@ -45,11 +45,9 @@ sf.param.rand_func = @randn;
 % Moč kodiranja sporočila v datoteko
 sf.param.strength = 0.024;
 
-% Omogoči Reed-Solomonovo kodiranje
-sf.param.rs_enable = false;
-
-% Največje št. napak, ki naj jih RS skuša odpraviti
-% (višja vrednost podaljša kodirano sporočilo)
+% Odkomentirana spodnja spremenljivka omogoči Reed-Solomonovo
+% kodiranje. Število poda največje št. napak, ki naj jih RS skuša
+% odpraviti (višja vrednost podaljša kodirano sporočilo)
 sf.param.rs_correctable_errors = 4;
 
 % Analiziraj podatke in izdelaj grafe

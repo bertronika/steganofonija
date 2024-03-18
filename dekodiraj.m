@@ -77,7 +77,7 @@ function dekodiraj(validating_encoding=false)
 	%%%
 	% Opcijsko dekodiraj z Reed-Solomonovo kodo.
 	%%%
-	if (sf.param.rs_enable)
+	if (isfield(sf.param, "rs_correctable_errors"))
 		disp("-- RS dekodiranje ------------");
 		[output_msg, n_of_errors] = rs_de(output_msg, sf.param.rs_correctable_errors);
 		output_msg = output_msg';
@@ -88,7 +88,7 @@ function dekodiraj(validating_encoding=false)
 		endif
 
 		if (validating_encoding)
-			printf("rs_error_rate = %.2f %%\n", (n_of_errors/numel(input_msg)) * 100);
+			printf("rs_error_rate = %.2f %%\n", (n_of_errors/numel(input_msg_text)) * 100);
 		endif
 	endif
 
