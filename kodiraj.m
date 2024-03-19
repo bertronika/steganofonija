@@ -2,14 +2,15 @@
 % Deloma povzeto po kodirniku/dekodirniku Akire Tamamorija (GPLv3):
 %  <https://gist.github.com/tam17aki/326cf8666338e39d4f5f9cb777e8c6c0>
 
-function kodiraj()
+function kodiraj(custom_sf=false)
 	addpath("util/");
+
 	global sf;
 
 	% Spremenljivke za "izvoz" drugim funkcijam.
 	global input_msg_text available_bits msg_flat x y fs channels;
 
-	if (!(exist("DEMO_MODE", "var") == 1))
+	if (!custom_sf)
 		source("param.m");
 	endif
 
@@ -110,7 +111,7 @@ function kodiraj()
 
 	% Preveri uspešnost kodiranja s klicem dekodirnika,
 	% ki pa bo uspešnost kodiranja le validiral.
-	dekodiraj(true)
+	dekodiraj(true, true)
 	if (isfield(sf.param, "create_graphs") && sf.param.create_graphs == true)
 		analiziraj
 	endif
