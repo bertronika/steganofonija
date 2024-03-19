@@ -4,27 +4,28 @@ Pričujoči programski paket služi demonstraciji kodiranja (skrivanja) besediln
 
 V kodirnem postopku se uporablja metoda razširjanja spektra (*Direct Sequence Spread Spectrum*), dekodiranje pa poteka z iskanjem maksimumov križne korelacije.
 
-Celoten paket je spisan in preizkušen v orodju GNU Octave, s sintakso, sorodno Matlabu.
+Celoten paket je spisan in preizkušen v orodju GNU Octave (verzije 8), s sorodnim Matlabom pa žal ni združljiv.
 
-Sestavljajo ga sledeče ključne skriptne datoteke:
+Sestavljajo ga sledeči programi:
 
-- `kodiraj` (iz vhodnega zvočnega posnetka in sporočila izdela izhodni posnetek, ki sporočilo vsebuje)
-- `dekodiraj` (iz enega ali dveh zvočnih posnetkov povrne sporočilo)
-- `analiziraj` (primerja amplitudna poteka, izriše Fourierovo analizo spektra in izdela spektrograma vhodnega in izhodnega posnetka)
-- `ponastavi` (izbriše datoteke, ki jih je program generiral)
+- `kodiraj` - iz vhodnega zvočnega posnetka in sporočila izdela izhodni posnetek, ki sporočilo vsebuje
+- `dekodiraj` - iz enega ali dveh zvočnih posnetkov povrne sporočilo
+- `analiziraj` - primerja amplitudna poteka, izriše Fourierovo analizo spektra in izdela spektrograma vhodnega in izhodnega posnetka
+- `primer <št. primera>` - izvede izbrano demonstracijsko kodiranje, dekodiranje in analizo
+- `ponastavi` izbriše datoteke, ki jih je program generiral
 
-Pred uporabo programa je potrebno urediti datoteko `param.m`. V njej se nahajajo vse uporabniške nastavitve.
+Pred uporabo programa je potrebno urediti datoteko `param.m`. V njej se nahajajo vse uporabniške nastavitve. V korenskem imeniku se nahajajo tudi druge skriptne datoteke, ki pa se uporabljajo posredno prek zgoraj naštetih.
 
-Posamezno skriptno datoteko se požene s klicem njenega imena brez končnice v Octave konzoli, ali pa s podajanjem datotečnega imena kot argument programu `octave` v terminalu.
+Za zagon programov obstaja več načinov. Program se lahko odpre prek ikone za zagon v grafičnem vmesniku, prek klica njegovega imena brez dopisane končnice v konzoli, ali pa s podajanjem datotečnega imena kot prvega argumenta programa `octave` v terminalu. Le program `primer` vzame en številski argument, zaporedno številko primera, ki naj se izvede.
 
 
 ## Uporaba
 
-Izvedba kodirnega skripta potrebuje vhoden zvočni posnetek in besedilno datoteko s sporočilom.
+Kodirni program potrebuje vhoden zvočni posnetek in besedilno datoteko s sporočilom.
 
-Dekodirni skript potrebuje vhoden zvočni posnetek s skritim sporočilom, morda pa tudi prvoten posnetek -- odvisno od jakosti kodiranja.
+Dekodirni program potrebuje vhoden zvočni posnetek s skritim sporočilom, morda pa tudi prvoten posnetek -- odvisno od jakosti kodiranja.
 
-Klic skripta `kodiraj` med delovanjem zažene tudi druga dva (`dekodiraj` in `analiziraj`), da se dobi vpogled v sestavo novega posnetka in statistiko. Pri kodiranju si lahko še privoščimo primerjave, saj imamo oba posnetka in izvorno sporočilo - dekodiranje nam pridela le skope rezultate analize.
+Klic programa `kodiraj` med delovanjem zažene tudi še `dekodiraj` in `analiziraj`, da se dobi vpogled v sestavo novega posnetka in statistiko. Pri kodiranju si lahko še privoščimo primerjave, saj imamo oba posnetka in izvorno sporočilo - samo dekodiranje nam pridela le skope rezultate analize.
 
 ### Načina delovanja dekodirnika
 
@@ -33,13 +34,13 @@ Sporočila se lahko dekodirajo na dva načina:
 - le iz posnetka s kodiranim sporočilom
 - iz posnetka s kodiranim sporočilom in izvirnega posnetka
 
-Med uporabo prvega in drugega ločuje spremenljivka `sf.de.use_input_audio`, ki dekodirniku pove, ali naj uporabi vhodni posnetek, definiran pri parametrih kodirnega postopka.
+Med uporabo prvega in drugega ločuje uporaba spremenljivke `sf.de.original_audio` - če je definirana in vsebuje pot do izvirnega posnetka, bo posnetek uporabljen pri dekodiranju. Če je komentirana, bo dekodirnik skušal pridobiti sporočilo le iz enega posnetka.
 
-V praksi najbolj zaželjena bi bila prva metoda, saj bi prejemniku rabili poslati le navidez običajen posnetek, iz katerega bi izločili sporočilo. Eksperimentiranje s programom pa je pokazalo, da jakosti kodiranja ni mogoče znižati na tak nivo, da bi ga algoritem še zaznal, človeško uho pa ne - šum, uporabljen pri kodiranju, je človeku še slišen, ko ga dekodirnik ni več sposoben uporabiti.
+V praksi najbolj zaželjena bi bila prva metoda, saj bi prejemniku rabili poslati le navidez običajen posnetek, iz katerega bi izločili sporočilo. Eksperimentiranje s programom pa je pokazalo, da jakosti kodiranja (zaenkrat) ni mogoče znižati na tak nivo, da bi ga algoritem še zaznal, človeško uho pa ne - šum, uporabljen pri kodiranju, je človeku še slišen, ko ga dekodirnik ni več sposoben uporabiti.
 
 Bolje se izkaže druga metoda - če ima prejemnik kodiranega sporočila pri sebi še izvirno sporočilo in ga uporabi pri dekodiranju, je lahko jakost kodiranja tako nizka, da tudi ob tihih delih posnetka ni slišnega kodiranega šuma.
 
-Analizo obeh metod se lahko izvede s klicem skriptov v imeniku *demo*: `run demo/primer1` in `run demo/primer2`.
+Analizo obeh metod se lahko izvede s klicem programa `primer` v Octave konzoli in podajanjem števila primera: prvi način se preizkusi z ukazom `primer 1`, drugi pa s `primer 2`.
 
 ### Reed-Solomonovo kodiranje
 
