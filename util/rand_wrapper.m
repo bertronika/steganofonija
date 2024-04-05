@@ -1,12 +1,12 @@
 function N = rand_wrapper(varargin)
-	global RAND_FUNC RAND_SEED;
+	global sf;
 
 	% Inicializiraj generator psevdo-naključnih števil
-	RAND_FUNC("state", RAND_SEED);
+	sf.param.rand_func("state", sf.param.rand_seed);
 
-	N = RAND_FUNC(varargin{:});
+	N = sf.param.rand_func(varargin{:});
 
-	if (strcmp(func2str(RAND_FUNC), "rand"))
+	if (strcmp(func2str(sf.param.rand_func), "rand"))
 		N -= 0.5;
 	endif
 endfunction

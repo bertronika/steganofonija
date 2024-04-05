@@ -1,3 +1,5 @@
+clear -g sf; global sf;
+
 %%%
 % Parametri kodirnega postopka
 %%%
@@ -19,11 +21,12 @@ sf.en.output_audio = "demo/skrivnost.wav";
 % Vhodni posnetek, ki vsebuje sporočilo
 sf.de.input_audio = sf.en.output_audio;
 
+% Izvirni posnetek za občutljivejše dekodiranje
+% Spremenljivko se lahko zakomentira, če izvirnega posnetka nimamo
+sf.de.original_audio = sf.en.input_audio;
+
 % Datoteka dekodiranega sporočila
 sf.de.output_file = "demo/sporocilo.txt";
-
-% Uporabi vhodni posnetek za občutljivejše dekodiranje
-sf.de.use_input_audio = false;
 
 
 %%%
@@ -31,21 +34,26 @@ sf.de.use_input_audio = false;
 %%%
 
 % Velikost okvirjev zvočne datoteke, v katere se kodira sporočilo
-%mora biti nujno večkratnik števila 1023!!!!!!!!
-sf.param.frame_len = 1023*1;
+sf.param.frame_len = 1023*5;
+
+% Seme generatorja psevdonaključnih števil
+sf.param.rand_seed = 1932;
+
+% Ime funkcije za tvorbo psevdonaključnega šuma
+sf.param.rand_func = @randn;
 
 % Moč kodiranja sporočila v datoteko
 sf.param.strength = 0.024;
 
-% Omogoči Reed-Solomonovo kodiranje
-sf.param.rs_enable = false;
-
-% Največje št. napak, ki naj jih RS skuša odpraviti
-% (višja vrednost podaljša kodirano sporočilo)
-sf.param.rs_correctable_errors = 4;
+% Odkomentirana spodnja spremenljivka omogoči Reed-Solomonovo
+% kodiranje. Število poda največje št. napak, ki naj jih RS skuša
+% odpraviti (višja vrednost podaljša kodirano sporočilo)
+# sf.param.rs_correctable_errors = 4;
 
 % Analiziraj podatke in izdelaj grafe
-sf.param.create_graphs = false;
+% Za izklop se spremenljivko lahko zakomentira
+# sf.param.create_graphs = true;
 
 % Shrani posamezen graf analize kodiranja v svojo datoteko
-sf.param.save_graphs_to_files = false;
+% Za izklop se spremenljivko lahko zakomentira
+# sf.param.save_graphs_to_files = true;
