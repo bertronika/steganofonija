@@ -20,6 +20,7 @@ function primer(n=-1)
 			sf.param.rand_func = @randn;
 			sf.param.strength = 0.015;
 			sf.param.create_graphs = true;
+			kodiraj(true)
 		case "2"
 			disp("== Demonstracija kodiranja z uporabo izvornega posnetka ==\n");
 			sf.en.input_file   = "demo/skrivnost.txt";
@@ -32,9 +33,8 @@ function primer(n=-1)
 			sf.param.rand_func = @randn;
 			sf.param.strength = 8e-9;
 			sf.param.create_graphs = true;
+			kodiraj(true)
 		otherwise
 			error("Ta primer ne obstaja\n");
 	endswitch
-
-	kodiraj(true)
 endfunction
