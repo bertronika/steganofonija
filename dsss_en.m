@@ -32,11 +32,11 @@ function [y, SNR, eff] = dsss_en(x, msg, strength, frame_len)
 	% Tvori vektor psevdo-naključnega šuma z izbrano jakostjo
 	N = rand_wrapper(x_len, 1) * strength;
 
-	% Vektor predelanega posnetka
-	y = zeros(frame_len * embeddable_bits, 1);
-
 	% Dolžina sporočila za vgradnjo
 	msg_len = numel(msg);
+
+	% Vektor predelanega posnetka
+	y = x;
 
 	% Vgrajevanje sporočila v predelan posnetek 'y'.
 	% Postopek poteka na posameznih okvirjih velikosti 'frame_len'.
@@ -61,12 +61,6 @@ function [y, SNR, eff] = dsss_en(x, msg, strength, frame_len)
 
 		pointer += frame_len;
 	endfor
-
-	y_len = numel(y);
-
-	% Dolžine zvočnega posnetka je morda večja od prostora za sporočilo,
-	% zato prilepi preostanek vzorcev iz izvirnega posnetka
-	y = [y; x(y_len:x_len - 1)];
 
 	% Statistika po kodiranju
 	SNR = 10 * log10(sumsq(x)/sumsq(x - y)); % Signal to Noise Ratio
