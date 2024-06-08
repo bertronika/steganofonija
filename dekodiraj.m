@@ -67,12 +67,8 @@ function dekodiraj(validating_encoding=false, custom_sf=false)
 	msg_recv_1 = resize(msg_recv, new_msg_size, 1);
 	msg_recv_2 = reshape(msg_recv_1, 8, [])';
 
-	% Obdrži vse vrstice do prve ničelne
-	i_of_first_zero_row = ismember(msg_recv_2, [ 0 0 0 0 0 0 0 0 ], "rows");
-	msg_non_zero = msg_recv_2(1:find(i_of_first_zero_row, 1) - 1, :);
-
 	% Pretvori dvojiško matriko sporočila v desetiško.
-	output_msg = bi2de(msg_non_zero, "left-msb");
+	output_msg = bi2de(msg_recv_2, "left-msb");
 
 
 	%%%
